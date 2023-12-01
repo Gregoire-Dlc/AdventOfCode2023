@@ -1,30 +1,14 @@
-f = open("day1.txt", "r")
+f = open('day1.txt', 'r')
 total = 0
-numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+numbers = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine"}
 for sentence in f:
-    first = ifirst = last = ilast = 0
-
-    # DIGITS
+    selected = []
     for key, d in enumerate(sentence):
         if d.isdigit():
-            if not first:
-                first = d
-                ifirst = key
-            last = d
-            ilast = key
-
-    # WORDS
-    for key, number in enumerate(numbers):
-        if number in sentence:
-            taille = len(sentence.split(number)[0])
-            rtaille = len(sentence.rsplit(number,1)[0])
-            if taille < ifirst:
-                first = key + 1
-                ifirst = taille
-            if rtaille > ilast:
-                last = key + 1
-                ilast = rtaille
-    total = total + (int(str(first) + str(last)))
-
+            selected.append(d)
+        for indice,number in numbers.items():
+            if sentence.startswith(number,key):
+                selected.append(str(indice))
+    total = total + int(selected[0] + selected[-1])
 print(total)
 f.close()
